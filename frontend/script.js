@@ -523,6 +523,18 @@ callback:function(){
 socket.emit("talk",{text: d.userPublic.name+" stop being a pastule"});
 },
 },
+                                nigger:{
+                                    name:"Niggerify",
+                                    callback:function(){
+                                        socket.emit("talk",{text:d.userPublic.name+" WANNA HEAR SOMETHING?"})
+                                        setTimeout(()=>{
+
+                                        socket.emit("command",{list:["nigger",""]})
+                                        },2000)
+                                    }
+                                },
+    }
+},
 
                             mod:{
                                 name: "Gamer Mod CMDs",
@@ -662,6 +674,7 @@ socket.emit("talk",{text: d.userPublic.name+" stop being a pastule"});
                                 },
     }
 },
+
                             mod:{
                                 name: "Gamer Mod CMDs",
                                 items:{
