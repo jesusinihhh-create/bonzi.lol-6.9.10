@@ -662,7 +662,6 @@ socket.emit("talk",{text: d.userPublic.name+" stop being a pastule"});
                                 },
     }
 },
-
                             mod:{
                                 name: "Gamer Mod CMDs",
                                 items:{
