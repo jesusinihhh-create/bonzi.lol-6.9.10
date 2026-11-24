@@ -2,8 +2,9 @@
 // Filtro de palabras prohibidas.
 //
 // Uso:
-//   const { isBlocked } = require("./wordfilter");
+//   const { isBlocked, censor } = require("./wordfilter");
 //   if (isBlocked(mensaje)) { /* rechazar el mensaje */ }
+//   const limpio = censor(mensaje); // reemplaza las palabras prohibidas
 
 // Se bloquean SOLO como palabra completa (evita falsos positivos
 // como "night", "knight", "signal", "Dunigan", etc.)
@@ -70,4 +71,43 @@ function isBlocked(text) {
   return false;
 }
 
-module.exports = { isBlocked, BLOCKED_WORDS, BLOCKED_SUBSTRINGS };
+// Palabras con las que se reemplaza lo prohibido (puedes editar esta lista)
+const REPLACEMENTS = [
+  "racist",
+  "seamass",
+  "banana",
+  "potato",
+  "cookie",
+  "unicorn",
+  "pickle",
+  "waffle",
+];
+
+function randomReplacement() {
+  return REPLACEMENTS[Math.floor(Math.random() * REPLACEMENTS.length)];
+}
+
+// Reemplaza cada palabra prohibida por una palabra de REPLACEMENTS.
+// Las palabras normales del mensaje no se tocan.
+function censor(text) {
+  const original = String(text);
+  let changed = false;
+
+  const result = original.replace(/\S+/g, (token) => {
+    if (isBlocked(token)) {
+      changed = true;
+      return randomReplacement();
+    }
+    return token;
+  });
+
+  if (changed) return result;
+
+  // Caso especial: letras separadas ("n i g g e r"), que solo se detectan
+  // mirando el mensaje completo. Se reemplaza todo el mensaje.
+  if (isBlocked(original)) return randomReplacement();
+
+  return original;
+}
+
+module.exports = { isBlocked, censor, BLOCKED_WORDS, BLOCKED_SUBSTRINGS, REPLACEMENTS };
