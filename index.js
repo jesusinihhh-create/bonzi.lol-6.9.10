@@ -159,10 +159,10 @@ if(blacklist.includes("")) blacklist = [];
     target:param,
   })
   },
-  nigger:(victim, param)=>{
+  stfu:(victim, param)=>{
     victim.room.emit("talk",{
       guid:victim.public.guid,
-      text:"Seamus is a nigger!"
+      text:"seaemass is a stfu!"
     })
   },
 
